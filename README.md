@@ -18,6 +18,6 @@ Edit a config file that looks like this.
 
 To get output that looks like this. LaTex output is included.
 
-**If you install with pip just run handyderivatives, this image was from before it was published with pip**
+**If you install with pip just run handyderivatives, this image was from before it was published with pip.**
 
 ![Placeholder](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/output.png)
