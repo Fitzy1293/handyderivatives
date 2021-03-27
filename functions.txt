@@ -1,0 +1,6 @@
+c(x) = r * (cos(x) + sqrt(-1)*sin(x))
+a(t) = 1/2 * g * t ** 2
+f(x) = sin(x**2) * x^2
+h(w) = E ^ (w^4 - (3 * w)^2 + 9)
+g(x) = exp(3 * pi)
+p(j) = csc(j^2)
