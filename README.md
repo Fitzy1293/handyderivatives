@@ -1,6 +1,10 @@
 # handyderivatives
 
-Get the derivatives for differentiable functions of a single variable.
+## Running it
+`python handyderivatives.py functions.txt`
+
+## How to use it
+It gets the derivatives for differentiable functions of a single variable.
 
 Edit a config file that looks like this. 
 
