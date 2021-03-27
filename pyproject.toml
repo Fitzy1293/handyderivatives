@@ -1,13 +1,15 @@
 [tool.poetry]
 name = "handyderivatives"
-version = "0.1.0"
-description = "A simple little to batch process some basic calc stuff."
+version = "1.1.0"
+description = "A simple little program to batch process some basic calc stuff."
 authors = ["fitzy1293"]
 license = "MIT"
+readme = 'README.md'
+repository = 'https://github.com/fitzy1293/handyderivatives'
 
 [tool.poetry.dependencies]
 python = "^3"
-sympy = "^1.7.1"
+sympy = '^1.7.1'
 
 [tool.poetry.dev-dependencies]
 
