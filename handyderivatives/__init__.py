@@ -1,4 +1,7 @@
 import sys
+# Want this to fail quick for taking the ~1s that importing sympy takes.
+if len(sys.argv) == 1:
+        exit('enter a filename')
 from sympy import sympify, diff, latex
 from sympy.abc import *
 
@@ -21,7 +24,13 @@ With that it gives you the derivative, and both the equation and derivative in L
 '''
 def printFmtDerivatives():
     with open(sys.argv[1], 'r') as functionsFile:
-        for i,  equation in enumerate(functionsFile.read().splitlines()):
+        validLineCt = 0
+        for equation in functionsFile.read().splitlines():
+            if equation == '':
+                continue
+            if equation[0] == '#':
+                continue
+
             equationSplit            = equation.replace('^', '**').split('=')
             leftHand                 = equationSplit[0].strip()
             rightHand                = equationSplit[1].strip()
@@ -36,14 +45,18 @@ def printFmtDerivatives():
             equationLatex            = latex(differentiableExpression)
             derivativeLatex          = latex(derivative)
             
-            print(f'({i+1})')
+            print(f'({validLineCt+1})')
             print(f'\t{equationOutput}')
             print(f'\t{derivativeOutput}')
             print()
             print(f'\tTeX fnc.{" " * 5}{equationLatex}')
             print(f'\tTeX deriv.{" " * 3}{derivativeLatex}')
 
+            validLineCt += 1
+
+
 def main():
+    
     printFmtDerivatives()
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "handyderivatives"
-version = "1.2.1"
+version = "1.2.0"
 description = "A simple little program to batch process some basic calc stuff."
 authors = ["fitzy1293"]
 license = "MIT"
