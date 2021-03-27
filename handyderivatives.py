@@ -33,7 +33,7 @@ with open(sys.argv[1], 'r') as functionsFile:
 
         equationOutput           = f'{leftHand}{" " * 7}= {rightHand}'
         derivativeOutput         = f'd[{leftHand}]/d{differentiableVariable} = {derivative}'
-        equationLatex            = latex(equation)
+        equationLatex            = latex(differentiableExpression)
         derivativeLatex          = latex(derivative)
         
         print(f'({i+1})')
