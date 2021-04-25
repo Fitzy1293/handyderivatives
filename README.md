@@ -12,7 +12,7 @@ Install with pip for the easiest use.
 ## How to use it
 It gets the derivatives for differentiable functions of a single variable.
 
-Edit a config file that looks like this. 
+Edit a file that looks like this. 
 
 ![Placeholder](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/file.png)
 
