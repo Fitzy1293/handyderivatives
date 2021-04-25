@@ -3,11 +3,11 @@
 d(x) = x * y * z^2
 d(y) = x * z * cos(y)
 d(z) = x * sin(z)
-# Then adding those results as a scalar.
+# Then add those results as a scalar.
 
 # Suppose you had a multi variable scalar function f(x,y,z) = cos(x) * y^2 + sin(z) * sqrt(x)
 # You could get the gradient this way.
 g(x) = cos(x) * y^2 + sin(z) * sqrt(x)
 g(y) = cos(x) * y^2 + sin(z) * sqrt(x)
 g(z) = cos(x) * y^2 + sin(z) * sqrt(x)
-# Then combining those results into a new vector.
+# These derivatives are the components of the gradient.
