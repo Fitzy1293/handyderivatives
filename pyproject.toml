@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "handyderivatives"
-version = "2.0.0"
+version = "2.0.1"
 description = "Differntiate a list of functions of and auomatically compile a LaTeX document to view the results."
 authors = ["fitzy1293"]
 license = "MIT"
