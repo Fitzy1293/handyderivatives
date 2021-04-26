@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "handyderivatives"
-version = "1.2.0"
-description = "A simple little program to batch process some basic calc stuff."
+version = "1.2.1"
+description = "Differntiate a list of functions of and auomatically compile a LaTeX document to view the results."
 authors = ["fitzy1293"]
 license = "MIT"
 readme = 'README.md'
