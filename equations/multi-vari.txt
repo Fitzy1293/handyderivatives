@@ -1,8 +1,8 @@
 # Suppose you had a vector field F = < x * y * z^2, x * z * cos(y), x * sin(z) >
 # You could get the divergence this way.
-d(x) = x * y * z^2
-d(y) = x * z * cos(y)
-d(z) = x * sin(z)
+f(x) = x * y * z^2
+g(y) = x * z * cos(y)
+h(z) = x * sin(z)
 # Then add those results as a scalar.
 
 # Suppose you had a multi variable scalar function f(x,y,z) = cos(x) * y^2 + sin(z) * sqrt(x)

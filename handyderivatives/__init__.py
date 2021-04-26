@@ -1,4 +1,8 @@
 '''
+Repo: https://github.com/Fitzy1293/handyderivatives
+PyPi: https://pypi.org/project/handyderivatives/
+
+
 Program to solve differentiable functions of one variable.
 LHS defines what variable it's a function of.
 No format checking right now.
@@ -17,20 +21,20 @@ With that it gives you the derivative, and both the equation and derivative in L
 '''
 
 import sys
-# Want this to fail quick for taking the ~1s that importing sympy takes.
-if len(sys.argv) == 1:
-        exit('enter a filename')
-import os
-import subprocess # For running pdflatex
 import argparse
-
-from sympy import sympify, diff, latex
-from sympy.abc import *
-
 parser = argparse.ArgumentParser(description='Differentiate functions of a single variable.')
 parser.add_argument('--input-file', '-f', dest='FILE', help='Input file')
 parser.add_argument('--latex', '-l', dest='LATEX', default=False, action='store_true', help='Compile a LaTeX document as output')
 ARGS = parser.parse_args()
+
+if len(sys.argv) == 1:
+    parser.print_help()
+    exit()
+
+import os
+import subprocess # For running pdflatex
+from sympy import sympify, diff, latex
+from sympy.abc import *
 
 def makeLatexFile(equations):
     startStr    = '\\documentclass{article}\n\n\\usepackage{amsmath}\n\n\\begin{document}\n\n'
@@ -41,15 +45,15 @@ def makeLatexFile(equations):
         f.write(startStr)
         for i, eq in enumerate(equations):
             if i % 2 == 0:
-                f.write(f'({i // 2 + 1})\n')
-
-            f.write(f'$${eq}$$')
+                f.write(f'({i // 2 + 1})\n\n' + '\\begin{align*}\n')
+                f.write(f'\t{eq}\\\\')
 
             if i %2 != 0:
-                f.write('\\\\')
+                f.write(f'\t{eq}\n' +'\\end{align*}')
                 f.write('\n')
 
             f.write('\n')
+
 
         f.write(f'{endStr}\n')
 
@@ -78,16 +82,17 @@ def printFmtDerivatives(file):
 
             differentiableExpression = sympify(rightHand)
             differentiableVariable   = sympify(leftHand[2])
-
-            derivativeEquationLeft   = f'd[{leftHand}]/d{differentiableVariable} = '
             derivative               = diff(differentiableExpression, differentiableVariable)
 
             equationOutput           = f'{leftHand}{" " * 7}= {rightHand}'
+            equationLatex            = f'{latex(sympify(leftHand))} &= {latex(differentiableExpression)}'
+
+            derivativeEquationLeft   = f'd[{leftHand}]/d{differentiableVariable} = '
             derivativeOutput         = f'{derivativeEquationLeft}{derivative}'
 
-            equationLatex            = f'{latex(leftHand)}{latex(" = ")}{latex(differentiableExpression)}'
-            derivativeLatex          = f'{latex(derivativeEquationLeft)}{latex(derivative)}'
+            derivativeLeftHand      = '\\frac{d \\left[ ' + leftHand + ' \\right ] }' + '{d' + str(differentiableVariable) + '}'
 
+            derivativeLatex          = f'{derivativeLeftHand} &= {latex(derivative)}'
 
             latexEquations.extend((equationLatex, derivativeLatex))
 
