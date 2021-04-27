@@ -22,6 +22,7 @@ With that it gives you the derivative, and both the equation and derivative in L
 
 import sys
 import argparse
+
 parser = argparse.ArgumentParser(description='Differentiate functions of a single variable.')
 parser.add_argument('--input-file', '-f', dest='FILE', help='Input file')
 parser.add_argument('--latex', '-l', dest='LATEX', default=False, action='store_true', help='Compile a LaTeX document as output')
@@ -48,7 +49,7 @@ def makeLatexFile(equations):
                 f.write(f'({i // 2 + 1})\n\n' + '\\begin{align*}\n')
                 f.write(f'\t{eq}\\\\')
 
-            if i %2 != 0:
+            else:
                 f.write(f'\t{eq}\n' +'\\end{align*}')
                 f.write('\n')
 
