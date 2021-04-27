@@ -43,11 +43,12 @@ p(j) = csc(j^2)
 If you don't format it like that you will likely run into errors.
 You  can add comments
 
-## LaTeX PDF output
-
-![Placeholder](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/images/output.png)
-
 ## TODO 
 Make the program take an expression as one argument, and the variable it's being differentiated with respect to another argument. 
 
 `handyderivatives --diff 'sin(x) + E ^ (sqrt(-1) * x)' x`
+
+
+## LaTeX PDF output
+
+![Placeholder](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/images/output.png)
