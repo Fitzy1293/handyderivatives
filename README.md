@@ -16,6 +16,14 @@ To automatically compile a LaTeX document with pdflatex
 
 `handyderivatives -f functions.txt --latex`
 
+## Opening the output 
+Normally you want to immediately see the output, so run something like this.
+
+`handyderivatives -f functions.txt --latex && zathura equations.pdf`
+
+The program used to open the PDF doesn't matter, as long as it's not something like Adobe Reader which takes a couple seconds to open on most machines.
+If you can enter a PDF and it opens it, then it will work. Zathura is nice because if you ctl + c in your terminal the the window with the PDF closes, this doesn't happen with them all.
+
 ## How the input file should be formatted
 Edit a file that has functions listed one per line.
 The left hand side should be what your function will be differentiated with respect to, i.e *f(x)* .
@@ -38,3 +46,8 @@ You  can add comments
 ## LaTeX PDF output
 
 ![Placeholder](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/images/output.png)
+
+#TODO 
+Make the program take an expression as one argument, and the variable it's being differentiated with respect to another argument. 
+
+`handyderivatives --diff 'sin(x) + E ^ (sqrt(-1) * x)' x`
