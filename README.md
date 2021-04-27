@@ -47,7 +47,7 @@ You  can add comments
 
 ![Placeholder](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/images/output.png)
 
-#TODO 
+## TODO 
 Make the program take an expression as one argument, and the variable it's being differentiated with respect to another argument. 
 
 `handyderivatives --diff 'sin(x) + E ^ (sqrt(-1) * x)' x`
