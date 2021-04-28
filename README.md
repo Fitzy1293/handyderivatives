@@ -10,15 +10,15 @@ This is a command line program to get the derivatives for differentiable functio
 ## Running it
 To get the derivatives for an arbitrary number of functions of a single variable.
 
-`handyderivatives --latex -d 'f(x) = x ^ 2' 'f(x) = sin(x) + 2 * x'` ...
+`handyderivatives --latex -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x'` ...
 
 To get the gradient for an arbitrary number of scalar functions.
 
 `handyderivatives --latex -g 'f(x,y,z) = ln(x / (2 * y)) - z^2 * (x - 2 * y) - 3*z'` ...
 
-Or run that at with one command.
+Or run that with one command.
 
-`handyderivatives --latex -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x' -g 'f(x,y,z) = ln(x / (2 * y)) - z^2 * (x - 2 * y) - 3*z'`
+`handyderivatives -l -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x' -g 'f(x,y,z) = ln(x / (2 * y)) - z^2 * (x - 2 * y) - 3*z'`
 
 To differentiate a list of functions in a file.
 
@@ -43,18 +43,15 @@ optional arguments:
                         Works for scalar functions written in form  'f(x,y,z) = x ^2 * sin(y) * cos(z)'
 ```
 
-
-
-
 ## Opening the output
 Normally you want to immediately see the output, so run something like this.
 
-`handyderivatives -l -d 'sin(x)' && zathura equations.pdf --mode presentation`
+`handyderivatives -l -d 'f(x) = sin(x)' && zathura equations.pdf --mode presentation`
 
 The program used to open the PDF doesn't matter, as long as it's not something like Adobe Reader which takes a couple seconds to open on most machines.
 If you can enter a PDF and it opens it, then it will work.
 Zathura is nice because if you ctl + c in your terminal, or press q in the Zathura window, it will close the PDF.
-This doesn't happen with them all PDF viewers.
+This doesn't happen with all PDF viewers.
 
 ## How the input file should be formatted
 Edit a file that has functions listed one per line.

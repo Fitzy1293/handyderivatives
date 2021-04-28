@@ -187,7 +187,6 @@ def printFmtDerivatives(file, strEquations=[]):
         elif operator == 'gradient':
             terminalPrint, latexFunctionDerivativeTuple = gradient(equation)
 
-
         consoleOutput.append(terminalPrint)
         latexEquations.extend(latexFunctionDerivativeTuple)
 
