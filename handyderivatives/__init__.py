@@ -21,21 +21,60 @@ With that it gives you the derivative, and both the equation and derivative in L
 '''
 
 import sys
+import os
 import argparse
+from argparse import RawTextHelpFormatter
+from pprint import pprint
 
-parser = argparse.ArgumentParser(description='Differentiate functions of a single variable.')
-parser.add_argument('--input-file', '-f', dest='FILE', help='Input file')
-parser.add_argument('--latex', '-l', dest='LATEX', default=False, action='store_true', help='Compile a LaTeX document as output')
+parser = argparse.ArgumentParser(
+                                formatter_class=RawTextHelpFormatter,
+                                description='Command line differential calculus tool using sympy.\nTry running:\nhandyderivatives -l -g \'f(x,y) = sin(x) * cos(y)\''
+                                )
+parser.add_argument(
+                        '--input-file',
+                		 '-f',
+                		 dest='FILE',
+                		 help='Input file'
+                    )
+parser.add_argument(
+                        '--latex',
+                        '-l',
+                		dest='LATEX',
+                		 action='store_true',
+                		 help='Compile a LaTeX document as output'
+         )
+parser.add_argument(
+                        '--diff',
+                        '-d',
+                        dest='DIFFERENTIAL',
+                        nargs='*',
+                        help='Works for equations written in the form  \'f(x) = x ^2\''
+         )
+parser.add_argument(
+                        '--gradient',
+                        '-g',
+                        dest='GRADIENT',
+                        nargs='*',
+                        help='Works for scalar functions written in form  \'f(x,y,z) = x ^2 * sin(y) * cos(z)\''
+         )
+
+
 ARGS = parser.parse_args()
 
-if len(sys.argv) == 1:
+ARGC = len(sys.argv)
+if ARGC == 1:
     parser.print_help()
-    exit()
+    sys.exit()
 
-import os
+if ARGS.FILE:
+    if not os.path.exists(ARGS.FILE):
+        parser.print_help()
+        sys.exit(f"\n'{ARGS.FILE}' is not a file")
+
 import subprocess # For running pdflatex
-from sympy import sympify, diff, latex
+from sympy import sympify, diff, latex, Matrix
 from sympy.abc import *
+
 
 def makeLatexFile(equations):
     startStr    = '\\documentclass{article}\n\n\\usepackage{amsmath}\n\n\\begin{document}\n\n'
@@ -64,60 +103,104 @@ def makeLatexFile(equations):
         os.remove(latexBuildFile)
 
 
-def printFmtDerivatives(file):
-    with open(file, 'r') as functionsFile:
+def cleanEquation(possibleEquation):
+    if '#' in possibleEquation:
+        possibleEquation = possibleEquation[:possibleEquation.find('#')]
+    if possibleEquation.strip() in (''):
+        return None
+    else:
+        return possibleEquation.replace('^', '**')
 
-        validLineCt     = 0
-        latexEquations  = []
-        consoleOutput   = []
+def sympyDifferentialData(equation):
+    equationSplit            = equation.split('=')
+    leftHand                 = equationSplit[0].strip()
+    rightHand                = equationSplit[1].strip()
 
-        for equation in functionsFile.read().splitlines():
-            if '#' in equation:
-                equation = equation[:equation.find('#')]
-            if equation.strip() in (''):
-                continue
+    differentiableExpression = sympify(rightHand)
+    differentiableVariable   = sympify(leftHand[2])
+    derivative               = diff(differentiableExpression, differentiableVariable)
 
-            equationSplit            = equation.replace('^', '**').split('=')
-            leftHand                 = equationSplit[0].strip()
-            rightHand                = equationSplit[1].strip()
+    equationOutput           = f'{leftHand}{" " * 7}= {rightHand}'
+    equationLatex            = f'{latex(sympify(leftHand))} &= {latex(differentiableExpression)}'
 
-            differentiableExpression = sympify(rightHand)
-            differentiableVariable   = sympify(leftHand[2])
-            derivative               = diff(differentiableExpression, differentiableVariable)
+    derivativeEquationLeft   = f'd[{leftHand}]/d{differentiableVariable} = '
+    derivativeOutput         = f'{derivativeEquationLeft}{derivative}'
 
-            equationOutput           = f'{leftHand}{" " * 7}= {rightHand}'
-            equationLatex            = f'{latex(sympify(leftHand))} &= {latex(differentiableExpression)}'
+    derivativeLeftHand       = '\\frac{d \\left[ ' + leftHand + ' \\right ] }' + '{d' + str(differentiableVariable) + '}'
+    derivativeLatex          = f'{derivativeLeftHand} &= {latex(derivative)}'
 
-            derivativeEquationLeft   = f'd[{leftHand}]/d{differentiableVariable} = '
-            derivativeOutput         = f'{derivativeEquationLeft}{derivative}'
+    output = (
+                f'\t{equationOutput}',
+                f'\t{derivativeOutput}\n',
+                f'\tTeX fnc.{" " * 5}{equationLatex}',
+                f'\tTeX deriv.{" " * 3}{derivativeLatex}'
+            )
 
-            derivativeLeftHand      = '\\frac{d \\left[ ' + leftHand + ' \\right ] }' + '{d' + str(differentiableVariable) + '}'
+    return ('\n'.join(output), (equationLatex, derivativeLatex))
 
-            derivativeLatex          = f'{derivativeLeftHand} &= {latex(derivative)}'
 
-            latexEquations.extend((equationLatex, derivativeLatex))
+def gradient(scalarFunctionStr):
+    equation = cleanEquation(scalarFunctionStr)
+    equationSplit                = equation.split('=')
+    leftHand                     = equationSplit[0].strip()
+    rightHand                    = equationSplit[1].strip()
 
-            output = (
-                        f'({validLineCt+1})',
-                        f'\t{equationOutput}',
-                        f'\t{derivativeOutput}\n',
-                        f'\tTeX fnc.{" " * 5}{equationLatex}',
-                        f'\tTeX deriv.{" " * 3}{derivativeLatex}'
-                    )
+    differentiableExpression     = sympify(rightHand)
+    variables                    = leftHand.replace(' ', '')[2:-1].split(',')
 
-            consoleOutput.append('\n'.join(output))
+    gradientComponents           = [diff(differentiableExpression, sympify(variable)) for variable in variables]
 
-            validLineCt += 1
+    latexLeftHand                = latex(sympify(leftHand))
+    latexEquation                = f'{latexLeftHand} &= {latex(differentiableExpression)}'
+    gradientVectorFormatting     = Matrix(gradientComponents)
+    latexGradient                = f'\\nabla {latexLeftHand} &= {latex(gradientVectorFormatting)}'
 
-        if ARGS.LATEX:
-            makeLatexFile(latexEquations)
-        else:
-            for equationOutput in consoleOutput:
-                print(equationOutput)
+    return (f'\t{equation}\n\t< {str(gradientComponents)[1:-1]} >', (latexEquation, latexGradient))
+
+
+def printFmtDerivatives(file, strEquations=[]):
+    equations = []
+
+    if file:
+        with open(file, 'r') as functionsFile:
+            for equation in functionsFile.read().splitlines():
+                equations.append((equation, 'diff-file'))
+
+    if strEquations:
+        for equation in strEquations:
+            equations.append((equation, 'diff'))
+
+    if ARGS.GRADIENT:
+        for inputGradient in ARGS.GRADIENT:
+            equations.append((inputGradient, 'gradient'))
+
+    latexEquations  = []
+    consoleOutput   = []
+    for equationOperator in equations:
+        equation = cleanEquation(equationOperator[0])
+        operator = equationOperator[1]
+        if not equation:
+            continue
+
+        if operator.startswith('diff'):
+            terminalPrint, latexFunctionDerivativeTuple = sympyDifferentialData(equation)
+        elif operator == 'gradient':
+            terminalPrint, latexFunctionDerivativeTuple = gradient(equation)
+
+
+        consoleOutput.append(terminalPrint)
+        latexEquations.extend(latexFunctionDerivativeTuple)
+
+
+    if ARGS.LATEX:
+        makeLatexFile(latexEquations)
+    else:
+        for i, equationOutput in enumerate(consoleOutput):
+            print(f'({i+1})\n{equationOutput}')
 
 
 def main():
-    printFmtDerivatives(ARGS.FILE)
+    printFmtDerivatives(ARGS.FILE, strEquations=ARGS.DIFFERENTIAL)
 
 if __name__ == '__main__':
     main()
