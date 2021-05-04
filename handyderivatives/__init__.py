@@ -139,7 +139,7 @@ def sympyDifferentialData(equation):
 
 
 def gradient(scalarFunctionStr):
-    equationSplit                = equation.split('=')
+    equationSplit                = scalarFunctionStr.split('=')
     leftHand                     = equationSplit[0].strip()
     rightHand                    = equationSplit[1].strip()
 
@@ -153,7 +153,7 @@ def gradient(scalarFunctionStr):
     gradientVectorFormatting     = Matrix(gradientComponents)
     latexGradient                = f'\\nabla {latexLeftHand} &= {latex(gradientVectorFormatting)}'
 
-    return (f'\t{equation}\n\t< {str(gradientComponents)[1:-1]} >', (latexEquation, latexGradient))
+    return (f'\t{scalarFunctionStr}\n\t< {str(gradientComponents)[1:-1]} >', (latexEquation, latexGradient))
 
 
 def printFmtDerivatives(file, strEquations=[]):
