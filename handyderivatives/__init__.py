@@ -32,16 +32,16 @@ parser = argparse.ArgumentParser(
                                 )
 parser.add_argument(
                         '--input-file',
-                		 '-f',
-                		 dest='FILE',
-                		 help='Input file'
+                        '-f',
+                		dest='FILE',
+                		help='Input file'
                     )
 parser.add_argument(
                         '--latex',
                         '-l',
                 		dest='LATEX',
-                		 action='store_true',
-                		 help='Compile a LaTeX document as output'
+                        action='store_true',
+                		help='Compile a LaTeX document as output'
          )
 parser.add_argument(
                         '--diff',
@@ -94,7 +94,6 @@ def makeLatexFile(equations):
 
             f.write('\n')
 
-
         f.write(f'{endStr}\n')
 
     print('compiling to equations.pdf')
@@ -106,7 +105,7 @@ def makeLatexFile(equations):
 def cleanEquation(possibleEquation):
     if '#' in possibleEquation:
         possibleEquation = possibleEquation[:possibleEquation.find('#')]
-    if possibleEquation.strip() in (''):
+    if possibleEquation.strip() == '':
         return None
     else:
         return possibleEquation.replace('^', '**')
@@ -140,7 +139,6 @@ def sympyDifferentialData(equation):
 
 
 def gradient(scalarFunctionStr):
-    equation = cleanEquation(scalarFunctionStr)
     equationSplit                = equation.split('=')
     leftHand                     = equationSplit[0].strip()
     rightHand                    = equationSplit[1].strip()
@@ -177,8 +175,8 @@ def printFmtDerivatives(file, strEquations=[]):
     latexEquations  = []
     consoleOutput   = []
     for equationOperator in equations:
-        equation = cleanEquation(equationOperator[0])
-        operator = equationOperator[1]
+        equation    = cleanEquation(equationOperator[0])
+        operator    = equationOperator[1]
         if not equation:
             continue
 
@@ -189,7 +187,6 @@ def printFmtDerivatives(file, strEquations=[]):
 
         consoleOutput.append(terminalPrint)
         latexEquations.extend(latexFunctionDerivativeTuple)
-
 
     if ARGS.LATEX:
         makeLatexFile(latexEquations)
