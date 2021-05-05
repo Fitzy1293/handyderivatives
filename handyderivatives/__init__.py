@@ -33,7 +33,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
                     '--input-file',
                     '-f',
-                	dest='FILE',
+                    dest='FILE',
                     help='Input file'
                 )
 parser.add_argument(
