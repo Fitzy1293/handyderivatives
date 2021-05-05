@@ -39,9 +39,9 @@ parser.add_argument(
 parser.add_argument(
                     '--latex',
                     '-l',
-                	dest='LATEX',
+                    dest='LATEX',
                     action='store_true',
-                	help='Compile a LaTeX document as output'
+                    help='Compile a LaTeX document as output'
                 )
 parser.add_argument(
                     '--diff',
