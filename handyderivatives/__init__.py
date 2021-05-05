@@ -31,32 +31,32 @@ parser = argparse.ArgumentParser(
                                 description='Command line differential calculus tool using sympy.\nTry running:\nhandyderivatives -l -g \'f(x,y) = sin(x) * cos(y)\''
                                 )
 parser.add_argument(
-                        '--input-file',
-                        '-f',
-                		dest='FILE',
-                		help='Input file'
-                    )
+                    '--input-file',
+                    '-f',
+                	dest='FILE',
+                    help='Input file'
+                )
 parser.add_argument(
-                        '--latex',
-                        '-l',
-                		dest='LATEX',
-                        action='store_true',
-                		help='Compile a LaTeX document as output'
-         )
+                    '--latex',
+                    '-l',
+                	dest='LATEX',
+                    action='store_true',
+                	help='Compile a LaTeX document as output'
+                )
 parser.add_argument(
-                        '--diff',
-                        '-d',
-                        dest='DIFFERENTIAL',
-                        nargs='*',
-                        help='Works for equations written in the form  \'f(x) = x ^2\''
-         )
+                    '--diff',
+                    '-d',
+                    dest='DIFFERENTIAL',
+                    nargs='*',
+                    help='Works for equations written in the form  \'f(x) = x ^2\''
+                )
 parser.add_argument(
-                        '--gradient',
-                        '-g',
-                        dest='GRADIENT',
-                        nargs='*',
-                        help='Works for scalar functions written in form  \'f(x,y,z) = x ^2 * sin(y) * cos(z)\''
-         )
+                    '--gradient',
+                    '-g',
+                    dest='GRADIENT',
+                    nargs='*',
+                    help='Works for scalar functions written in form  \'f(x,y,z) = x ^2 * sin(y) * cos(z)\''
+                )
 
 
 ARGS = parser.parse_args()
