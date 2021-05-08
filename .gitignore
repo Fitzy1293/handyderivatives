@@ -1,4 +1,4 @@
 handyderivatives/__pycache__
-equations.*
+./equations.*
 dist
 backup_config.toml
