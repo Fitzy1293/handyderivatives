@@ -72,7 +72,7 @@ if ARGS.FILE:
         sys.exit(f"\n'{ARGS.FILE}' is not a file")
 
 import subprocess # For running pdflatex
-from sympy import sympify, diff, latex, Matrix
+from sympy import sympify, diff, latex, Matrix, simplify
 from sympy.abc import *
 
 
@@ -108,7 +108,9 @@ def cleanEquation(possibleEquation):
     if possibleEquation.strip() == '':
         return None
     else:
-        return possibleEquation.replace('^', '**')
+        # https://docs.sympy.org/latest/gotchas.html#inverse-trig-functions
+            # arcsin -> asin arccos -> acos
+        return possibleEquation.replace('^', '**').replace('arcsin', 'asin').replace('arccos', 'acos')
 
 def sympyDifferentialData(equation):
     equationSplit            = equation.split('=')
@@ -117,7 +119,7 @@ def sympyDifferentialData(equation):
 
     differentiableExpression = sympify(rightHand)
     differentiableVariable   = sympify(leftHand[2])
-    derivative               = diff(differentiableExpression, differentiableVariable)
+    derivative               = diff(differentiableExpression, differentiableVariable)asinasin
 
     equationOutput           = f'{leftHand}{" " * 7}= {rightHand}'
     equationLatex            = f'{latex(sympify(leftHand))} &= {latex(differentiableExpression)}'
@@ -139,21 +141,25 @@ def sympyDifferentialData(equation):
 
 
 def gradient(scalarFunctionStr):
-    equationSplit                = scalarFunctionStr.split('=')
-    leftHand                     = equationSplit[0].strip()
-    rightHand                    = equationSplit[1].strip()
+    equationSplit            = scalarFunctionStr.split('=')
+    leftHand                 = equationSplit[0].strip()
+    rightHand                = equationSplit[1].strip()
 
-    differentiableExpression     = sympify(rightHand)
-    variables                    = leftHand.replace(' ', '')[2:-1].split(',')
+    differentiableExpression = sympify(rightHand)
+    variables                = leftHand.replace(' ', '')[2:-1].split(',')
 
-    gradientComponents           = [diff(differentiableExpression, sympify(variable)) for variable in variables]
+    gradientComponents       = [diff(differentiableExpression, sympify(variable)) for variable in variables]
 
-    latexLeftHand                = latex(sympify(leftHand))
-    latexEquation                = f'{latexLeftHand} &= {latex(differentiableExpression)}'
-    gradientVectorFormatting     = Matrix(gradientComponents)
-    latexGradient                = f'\\nabla {latexLeftHand} &= {latex(gradientVectorFormatting)}'
+    latexLeftHand            = latex(sympify(leftHand))
+    latexEquation            = f'{latexLeftHand} &= {latex(differentiableExpression)}'
+    gradientVectorFormatting = Matrix(gradientComponents)
+    latexGradient            = f'\\nabla {latexLeftHand} &= {latex(gradientVectorFormatting)}'
 
     return (f'\t{scalarFunctionStr}\n\t< {str(gradientComponents)[1:-1]} >', (latexEquation, latexGradient))
+
+
+def divergence(vector=[]):
+    pass
 
 
 def printFmtDerivatives(file, strEquations=[]):
