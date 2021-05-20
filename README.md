@@ -3,12 +3,15 @@
 [PyPi link](https://pypi.org/project/handyderivatives/)
 
 A command line program to do some differential calcuslus.
-This is essentially a wrapper for some of [sympy's](https://github.com/sympy/sympy/) calculus tools.
+This is essentially a wrapper for some of [SymPy's](https://github.com/sympy/sympy) calculus tools.
+[Here is SymPy's calculus documentation.](https://docs.sympy.org/latest/tutorial/calculus.html)
+
 
 *Right now it has the functionality listed below.*
 
 - Differentiate elementary functions.
 - Get the gradient of a scalar field.
+
 
 ## Installation
 ```
@@ -46,7 +49,7 @@ The `-l` flag can also be used in the earlier examples.
 ```
 usage: handyderivatives [-h] [--input-file FILE] [--latex] [--diff [DIFFERENTIAL [DIFFERENTIAL ...]]] [--gradient [GRADIENT [GRADIENT ...]]]
 
-Command line differential calculus tool using sympy.
+Command line differential calculus tool using SymPy.
 Try running:
 handyderivatives -l -g 'f(x,y) = sin(x) * cos(y)'
 
@@ -72,19 +75,50 @@ The right hand side will be the expression.
 c(x) = r * (cos(x) + sqrt(-1) * sin(x))
 a(t) = 1/2 * g * t ** 2
 f(x) = sin(x**2) * x^2
-h(w) = E ^ (w^4 - (3 * w)^2 + 9) # Capital E is interpreted by sympy as the base of the natural log.
-g(x) = exp(3 * pi)              # So is exp(x), but written as a function taking an argument.
+h(w) = E ^ (w^4 - (3 * w)^2 + 9) # Capital E is interpreted by SymPy as the base of the natural log.
+g(x) = exp(3 * pi)               # So is exp(x), but written as a function taking an argument.
 p(j) = csc(j^2)
 ```
 
 If you don't format it like that you will likely run into errors.
 You  can add comments
 
+## Get independent variables, and expression
+This is used for standard derivatives and the gradient.
+
+
+```python
+def parseFncStr(functionStr):
+    equationSplit = functionStr.split('=')
+    leftHand      = equationSplit[0]
+    rightHand     = equationSplit[1]
+
+    if leftHand[3] == ')':
+        variables  = sympify(leftHand[2])
+        expression = sympify(rightHand)
+    else:
+         variables  = [sympify(diffVariableChar) for diffVariableChar in leftHand[2:-1].split(',')]
+         expression = sympify(rightHand)
+
+    sympifyDict = {
+                        'left': leftHand,
+                        'right': rightHand,
+                        'variables': variables,
+                        'expression': expression
+                }
+
+
+    return sympifyDict
+```
+
+White space is removed before `functionStr` is passed into `parseFncStr()`.
+<!--
 ## TODO
-- Importing things from sympy takes up a significant amount of time when the program first loads.
+- Importing things from SymPy takes up a significant amount of time when the program first loads.
 Right now it's the main bottleneck, maybe there's some way to do this faster.
 - Add divergence.
 
-## Sample PDF compiled for LaTeX document
+## Sample PDF
 
 ![PDF-Example](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/images/output.png)
+-->

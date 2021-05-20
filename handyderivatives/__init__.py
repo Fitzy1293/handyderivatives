@@ -28,7 +28,7 @@ import argparse
 from argparse import RawTextHelpFormatter
 from pprint import pprint
 
-parserDescription = '\nCommand line differential calculus tool using sympy.\nGradient ex.\nhandyderivatives -l -g \'f(x,y) = sin(x) * cos(y)\''
+parserDescription = '\nCommand line differential calculus tool using SymPy.\nGradient ex.\nhandyderivatives -l -g \'f(x,y) = sin(x) * cos(y)\''
 
 parser = argparse.ArgumentParser(
                                     formatter_class=RawTextHelpFormatter,
@@ -130,7 +130,6 @@ def parseFncStr(functionStr):
     if leftHand[3] == ')':
         variables  = sympify(leftHand[2])
         expression = sympify(rightHand)
-        #print('variables:', variables, 'expressions:', expressions)
     else:
          variables  = [sympify(diffVariableChar) for diffVariableChar in leftHand[2:-1].split(',')]
          expression = sympify(rightHand)
@@ -140,7 +139,7 @@ def parseFncStr(functionStr):
                         'right': rightHand,
                         'variables': variables,
                         'expression': expression
-}
+                }
 
 
     return sympifyDict
