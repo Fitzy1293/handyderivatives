@@ -24,11 +24,15 @@ handyderivatives -g 'f(x,y,z) = ln(x / (2 * y)) - z^2 * (x - 2 * y) - 3*z'
 ```
 Or run that with one command.
 
-`handyderivatives -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x' -g 'f(x,y,z) = ln(x / (2 * y)) - z^2 * (x - 2 * y) - 3*z'`
+```
+handyderivatives -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x' -g 'f(x,y,z) = ln(x / (2 * y)) - z^2 * (x - 2 * y) - 3*z'
+```
 
 To differentiate a list of functions in a file and output that to a LaTeX document.
 
-`handyderivatives --latex -f functions.txt`
+```
+handyderivatives --latex -f functions.txt
+```
 
 It will also compile the document using pdflatex.
 
