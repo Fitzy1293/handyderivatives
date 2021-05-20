@@ -1,13 +1,13 @@
 # handyderivatives
 
+[PyPi link](https://pypi.org/project/handyderivatives/)
+
 A command line program to do some differential calcuslus.
 This is essentially a wrapper for some of [sympy's](https://github.com/sympy/sympy/) calculus tools.
 *Right now it has the functionality listed below.*
 
 - Differentiate elementary functions.
 - Get the gradient of a scalar field.
-
-[PyPi link/](https://pypi.org/project/handyderivatives/)
 
 ## Installation
 `pip3 install handyderivatives`
@@ -75,12 +75,10 @@ If you don't format it like that you will likely run into errors.
 You  can add comments
 
 ## TODO
-Using sympy's imports takes up a significaant amount of time when the program first loads.
-Right now it's the main bottleneck.
-Maybe there's some way to do this faster.  
+- Importing things from sympy takes up a significant amount of time when the program first loads.
+Right now it's the main bottleneck, maybe there's some way to do this faster.
+- Add divergence.
 
-Add divergence.
-
-## LaTeX PDF output
+## Sample PDF compiled for LaTeX document
 
 ![PDF-Example](https://raw.githubusercontent.com/Fitzy1293/handyderivatives/main/images/output.png)
