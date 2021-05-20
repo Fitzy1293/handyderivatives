@@ -4,18 +4,23 @@
 
 A command line program to do some differential calcuslus.
 This is essentially a wrapper for some of [sympy's](https://github.com/sympy/sympy/) calculus tools.
+
 *Right now it has the functionality listed below.*
 
 - Differentiate elementary functions.
 - Get the gradient of a scalar field.
 
 ## Installation
-`pip3 install handyderivatives`
+```
+pip3 install handyderivatives
+```
 
 ## Running it
 To get the derivatives for an arbitrary number of functions of a single variable.
 
-`handyderivatives -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x'`
+```
+handyderivatives -d 'f(x) = x ^ 2' 'g(x) = sin(x) + 2 * x'
+```
 
 To get the gradient for an arbitrary number of scalar functions.
 
@@ -32,11 +37,12 @@ To differentiate a list of functions in a file and output that to a LaTeX docume
 
 ```
 handyderivatives --latex -f functions.txt
+handyderivatives -l -f functions.txt
 ```
 
-It will also compile the document using pdflatex.
+The `-l` flag can also be used in the earlier examples.
 
-
+### Help
 ```
 usage: handyderivatives [-h] [--input-file FILE] [--latex] [--diff [DIFFERENTIAL [DIFFERENTIAL ...]]] [--gradient [GRADIENT [GRADIENT ...]]]
 
