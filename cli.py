@@ -1,2 +1,0 @@
-import handyderivatives
-handyderivatives.main()
