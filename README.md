@@ -105,7 +105,7 @@ def parseFncStr(functionStr):
                         'right': rightHand,
                         'variables': variables,
                         'expression': expression
-                }
+    }
 
 
     return sympifyDict
