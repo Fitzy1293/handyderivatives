@@ -2,7 +2,7 @@
 
 [PyPi link](https://pypi.org/project/handyderivatives/)
 
-A command line program to do some differential calcuslus.
+A command line program to do some differential calculus.
 This is essentially a wrapper for some of [SymPy's](https://github.com/sympy/sympy) calculus tools.
 [Here is SymPy's calculus documentation.](https://docs.sympy.org/latest/tutorial/calculus.html)
 
