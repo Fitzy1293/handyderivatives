@@ -81,37 +81,8 @@ p(j) = csc(j^2)
 ```
 
 If you don't format it like that you will likely run into errors.
-You  can add comments
+You  can add comments.
 
-## Get independent variables, and expression
-This is used for standard derivatives and the gradient.
-
-
-```python
-def parseFncStr(functionStr):
-    equationSplit = functionStr.split('=')
-    leftHand      = equationSplit[0]
-    rightHand     = equationSplit[1]
-
-    if leftHand[3] == ')':
-        variables  = sympify(leftHand[2])
-        expression = sympify(rightHand)
-    else:
-         variables  = [sympify(diffVariableChar) for diffVariableChar in leftHand[2:-1].split(',')]
-         expression = sympify(rightHand)
-
-    sympifyDict = {
-                        'left': leftHand,
-                        'right': rightHand,
-                        'variables': variables,
-                        'expression': expression
-    }
-
-
-    return sympifyDict
-```
-
-White space is removed before `functionStr` is passed into `parseFncStr()`.
 <!--
 ## TODO
 - Importing things from SymPy takes up a significant amount of time when the program first loads.
