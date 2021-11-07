@@ -1,11 +1,15 @@
 #!/bin/env bash
-#clear
+
+set -eu
 
 green='\e[0;32m'
 cyan='\e[0;36m'
 end='\e[0m'
 blue='\e[1;34m'
 magenta='\e[1;35m'
+
+clear
+rm -rf output && mkdir output
 
 echo -e "${cyan}handyderivatives development test${end}\n"
 
@@ -15,5 +19,5 @@ echo
 echo -e "${blue}testing to stdout${green}\n"
 time ./test/stdout-test.sh
 
-printf ${end}
+printf "${end}"
 exit 0
