@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "handyderivatives"
-version = "2.1.2"
+version = "2.3.1"
 description = "Calc. on the command line - with LaTeX output."
 authors = ["fitzy1293"]
 license = "MIT"
